@@ -2,10 +2,10 @@
   "name": "weather-app",
   "version": "1.0.0",
   "description": "Simple weather site for current weather.",
-  "main": "index.js",
+  "main": "./src/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "parcel build src/index.html"
+    "build": "parcel build index.html"
   },
   "repository": {
     "type": "git",
