@@ -4,9 +4,40 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <link rel="stylesheet" href="../src/style.css" />
+    <title>The Weather App</title>
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
   </head>
   <body>
-    <script src="../src/index.js"></script>
+    <section class="main-content-wrapper">
+      <h1>Welcome!</h1>
+      <h3>Your current weather:</h3>
+      <div class="weather-wrapper blurred">
+        <div class="weather-icon">☀️</div>
+        <div class="weather-data">
+          <div class="temperature-section">
+            <h5>Temperature</h5>
+            <p><span class="temperature">25</span>&deg;</p>
+          </div>
+          <div class="feels-like-section">
+            <h5>Feels like</h5>
+            <p><span class="feels-like">25</span>&deg;</p>
+          </div>
+          <div class="precipitation-section">
+            <h5>Precipitation</h5>
+            <p><span class="precipitation">0</span> mm</p>
+          </div>
+          <div class="wind-section">
+            <h5>Wind</h5>
+            <p><span class="wind">3</span> m/s</p>
+          </div>
+        </div>
+      </div>
+      <div class="precipitation-forecast-wrapper blurred">
+        <h5>Precipitation forecast</h5>
+        <p><span class="precipitation-forecast">20</span>%</p>
+      </div>
+    </section>
+    <script src="../src/main.js" type="module"></script>
   </body>
 </html>
