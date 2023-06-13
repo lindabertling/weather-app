@@ -1,7 +1,6 @@
 // selectors
 const weatherWrapper = document.querySelector(".weather-wrapper");
 const weatherIcon = document.querySelector(".weather-icon");
-const weatherData = document.querySelector(".weather-data"); // ?
 const temperature = document.querySelector(".temperature");
 const feelsLike = document.querySelector(".feels-like");
 const precipitation = document.querySelector(".precipitation");
@@ -108,16 +107,3 @@ const setWeatherIcon = (weatherIcon) => {
       break;
   }
 };
-
-// getWeather(10, 10)
-//   .then((res) => {
-//     weatherIcon.textContent = setWeatherIcon(res.weatherIconCode);
-//     temperature.textContent = res.temperature;
-//     feelsLike.textContent = res.feelsLike;
-//     precipitation.textContent = res.precipitation;
-//     wind.textContent = res.wind;
-//     precipitationForecast.textContent = res.precipitationForecast;
-//     weatherWrapper.classList.remove("blurred");
-//     precipitationForecastWrapper.classList.remove("blurred");
-//   })
-//   .catch((e) => console.log("Error: " + e));
