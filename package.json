@@ -1,0 +1,23 @@
+{
+  "name": "weather-app",
+  "version": "1.0.0",
+  "description": "Simple weather site for current weather.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "parcel build src/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lindabertling/weather-app.git"
+  },
+  "author": "Linda",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lindabertling/weather-app/issues"
+  },
+  "homepage": "https://github.com/lindabertling/weather-app#readme",
+  "dependencies": {
+    "parcel-bundler": "^1.12.5"
+  }
+}
