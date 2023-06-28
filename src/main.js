@@ -12,6 +12,18 @@ const precipitationForecast = document.querySelector(".precipitation-forecast");
 
 navigator.geolocation.getCurrentPosition(positionSuccess, positionFailure);
 
+const getHour = function () {
+  const minutes = new Date().getMinutes();
+  const hours = new Date().getHours();
+
+  if (minutes < 30) {
+    return hours;
+  } else if (minutes >= 30) {
+    return hours + 1;
+  }
+};
+const hour = getHour();
+
 function positionSuccess({ coords }) {
   getWeather(coords.latitude, coords.longitude)
     .then((res) => {
@@ -40,12 +52,12 @@ function getWeather(latitude, longitude) {
       { params: { latitude, longitude } }
     )
     .then(({ data }) => {
-      const temperature = data.hourly.temperature_2m[0];
-      const feelsLikeTemp = data.hourly.apparent_temperature[0];
-      const precipitation = data.hourly.precipitation[0];
-      const wind = data.hourly.windspeed_10m[0];
-      const precipitationForecast = data.hourly.precipitation_probability[0];
-      const weatherIconCode = data.hourly.weathercode[0];
+      const temperature = data.hourly.temperature_2m[hour];
+      const feelsLikeTemp = data.hourly.apparent_temperature[hour];
+      const precipitation = data.hourly.precipitation[hour];
+      const wind = data.hourly.windspeed_10m[hour];
+      const precipitationForecast = data.hourly.precipitation_probability[hour];
+      const weatherIconCode = data.hourly.weathercode[hour];
       return {
         temperature: temperature,
         feelsLike: feelsLikeTemp,
