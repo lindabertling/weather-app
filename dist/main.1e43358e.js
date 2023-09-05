@@ -118,7 +118,10 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   return newRequire;
 })({"src/main.js":[function(require,module,exports) {
+// require("dotenv").config();
+
 // selectors
+var location = document.querySelector(".location");
 var weatherWrapper = document.querySelector(".weather-wrapper");
 var weatherIcon = document.querySelector(".weather-icon");
 var temperature = document.querySelector(".temperature");
@@ -128,8 +131,22 @@ var wind = document.querySelector(".wind");
 var precipitationForecastWrapper = document.querySelector(".precipitation-forecast-wrapper");
 var precipitationForecast = document.querySelector(".precipitation-forecast");
 navigator.geolocation.getCurrentPosition(positionSuccess, positionFailure);
+var getHour = function getHour() {
+  var minutes = new Date().getMinutes();
+  var hours = new Date().getHours();
+  if (minutes < 30) {
+    return hours;
+  } else if (minutes >= 30) {
+    return hours + 1;
+  }
+};
+var hour = getHour();
+var API_KEY = "155927537613983824070x74369";
 function positionSuccess(_ref) {
   var coords = _ref.coords;
+  getLocationName(coords.latitude, coords.longitude).then(function (res) {
+    location.textContent = res.osmtags.name;
+  });
   getWeather(coords.latitude, coords.longitude).then(function (res) {
     weatherIcon.textContent = setWeatherIcon(res.weatherIconCode);
     temperature.textContent = res.temperature;
@@ -146,6 +163,13 @@ function positionSuccess(_ref) {
 function positionFailure() {
   alert("An error occured when trying to get your location. Please check your location settings and try again. :)");
 }
+function getLocationName(latitude, longitude) {
+  return fetch("https://geocode.xyz/".concat(latitude, ",").concat(longitude, "?geoit=json&auth=").concat(API_KEY)).then(function (res) {
+    return res.json();
+  }).then(function (data) {
+    return data;
+  });
+}
 function getWeather(latitude, longitude) {
   return axios.get("https://api.open-meteo.com/v1/forecast?hourly=temperature_2m,apparent_temperature,precipitation_probability,precipitation,weathercode,windspeed_10m", {
     params: {
@@ -154,12 +178,12 @@ function getWeather(latitude, longitude) {
     }
   }).then(function (_ref2) {
     var data = _ref2.data;
-    var temperature = data.hourly.temperature_2m[0];
-    var feelsLikeTemp = data.hourly.apparent_temperature[0];
-    var precipitation = data.hourly.precipitation[0];
-    var wind = data.hourly.windspeed_10m[0];
-    var precipitationForecast = data.hourly.precipitation_probability[0];
-    var weatherIconCode = data.hourly.weathercode[0];
+    var temperature = data.hourly.temperature_2m[hour];
+    var feelsLikeTemp = data.hourly.apparent_temperature[hour];
+    var precipitation = data.hourly.precipitation[hour];
+    var wind = data.hourly.windspeed_10m[hour];
+    var precipitationForecast = data.hourly.precipitation_probability[hour];
+    var weatherIconCode = data.hourly.weathercode[hour];
     return {
       temperature: temperature,
       feelsLike: feelsLikeTemp,
@@ -245,7 +269,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50488" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59707" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

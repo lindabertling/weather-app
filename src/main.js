@@ -1,4 +1,7 @@
+// require("dotenv").config();
+
 // selectors
+const location = document.querySelector(".location");
 const weatherWrapper = document.querySelector(".weather-wrapper");
 const weatherIcon = document.querySelector(".weather-icon");
 const temperature = document.querySelector(".temperature");
@@ -23,8 +26,12 @@ const getHour = function () {
   }
 };
 const hour = getHour();
+const { API_KEY } = process.env;
 
 function positionSuccess({ coords }) {
+  getLocationName(coords.latitude, coords.longitude).then((res) => {
+    location.textContent = res.osmtags.name;
+  });
   getWeather(coords.latitude, coords.longitude)
     .then((res) => {
       weatherIcon.textContent = setWeatherIcon(res.weatherIconCode);
@@ -43,6 +50,14 @@ function positionFailure() {
   alert(
     "An error occured when trying to get your location. Please check your location settings and try again. :)"
   );
+}
+
+function getLocationName(latitude, longitude) {
+  return fetch(
+    `https://geocode.xyz/${latitude},${longitude}?geoit=json&auth=${API_KEY}`
+  )
+    .then((res) => res.json())
+    .then((data) => data);
 }
 
 function getWeather(latitude, longitude) {
